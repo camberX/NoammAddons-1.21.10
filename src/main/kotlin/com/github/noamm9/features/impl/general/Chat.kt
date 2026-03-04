@@ -3,19 +3,16 @@ package com.github.noamm9.features.impl.general
 import com.github.noamm9.event.impl.ChatMessageEvent
 import com.github.noamm9.event.impl.MouseClickEvent
 import com.github.noamm9.features.Feature
-import com.github.noamm9.interfaces.IChatComponent
 import com.github.noamm9.ui.clickgui.components.getValue
 import com.github.noamm9.ui.clickgui.components.impl.ToggleSetting
 import com.github.noamm9.ui.clickgui.components.provideDelegate
 import com.github.noamm9.ui.clickgui.components.withDescription
 import com.github.noamm9.ui.notification.NotificationManager
 import com.github.noamm9.utils.ChatUtils
-import com.github.noamm9.utils.ChatUtils.removeFormatting
 import com.github.noamm9.utils.ChatUtils.unformattedText
 import com.github.noamm9.utils.DataDownloader
 import com.github.noamm9.utils.NumbersUtils
 import com.github.noamm9.utils.Utils.remove
-import net.minecraft.client.GuiMessage
 import net.minecraft.client.gui.screens.ChatScreen
 import net.minecraft.network.chat.Component
 import org.lwjgl.glfw.GLFW
@@ -75,7 +72,8 @@ object Chat: Feature("Useful tweaks for the chat such as Ctrl + Click to copy me
     }
 
     private fun getHoveredMsg(): String {
-        val chatHud = (mc.gui.chat as? IChatComponent) ?: return ""
+        return ""
+        /*
 
         val x = chatHud.mouseXtoChatX
         val y = chatHud.mouseYtoChatY
@@ -106,5 +104,6 @@ object Chat: Feature("Useful tweaks for the chat such as Ctrl + Click to copy me
         }
 
         return builder.toString().removeFormatting()
+        */
     }
 }

@@ -22,6 +22,7 @@ import com.github.noamm9.utils.Utils.uppercaseFirst
 import com.github.noamm9.utils.items.ItemUtils.hasGlint
 import com.github.noamm9.utils.render.Render2D
 import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ClickType
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
@@ -302,7 +303,7 @@ object TerminalSolver: Feature("Renders solutions for Floor 7 terminals.") {
             slot,
             if (btn == 0) 2 else btn,
             if (btn == 0) ClickType.CLONE else ClickType.PICKUP,
-            mc.player
+            mc.player as Player
         )
 
         if (NoammAddons.debugFlags.contains("terminal")) {

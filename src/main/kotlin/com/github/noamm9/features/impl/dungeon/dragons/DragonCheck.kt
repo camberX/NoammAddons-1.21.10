@@ -6,6 +6,7 @@ import com.github.noamm9.utils.dungeons.DungeonListener
 import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.network.protocol.game.*
 import net.minecraft.sounds.SoundEvents
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.decoration.ArmorStand
 import net.minecraft.world.item.Items
@@ -70,7 +71,7 @@ object DragonCheck {
         val sprayedEntity = mc.level?.getEntity(packet.entity) as? ArmorStand ?: return
 
         WitherDragonEnum.entries.forEach { dragon ->
-            if (dragon.sprayedTime != null || dragon.state != WitherDragonState.ALIVE || dragon.entity == null || sprayedEntity.distanceTo(dragon.entity) > 8) return@forEach
+            if (dragon.sprayedTime != null || dragon.state != WitherDragonState.ALIVE || dragon.entity == null || sprayedEntity.distanceTo(dragon.entity as Entity) > 8) return@forEach
             dragon.sprayedTime = DungeonListener.currentTime - dragon.spawnedTime
         }
     }

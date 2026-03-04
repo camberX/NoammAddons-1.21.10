@@ -8,6 +8,7 @@ import com.github.noamm9.ui.clickgui.components.impl.DropdownSetting
 import com.github.noamm9.ui.clickgui.components.impl.SliderSetting
 import com.github.noamm9.ui.clickgui.components.impl.ToggleSetting
 import com.github.noamm9.utils.ThreadUtils
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ClickType
 import kotlin.random.Random
 
@@ -159,7 +160,7 @@ object AutoTerminal: Feature("Automatically clicks terminals for you.") {
 
     private fun sendClickPacket(slot: Int) {
         mc.gameMode?.handleInventoryMouseClick(
-            TerminalListener.lastWindowId, slot, 2, ClickType.CLONE, mc.player
+            TerminalListener.lastWindowId, slot, 2, ClickType.CLONE, mc.player as Player
         )
     }
 

@@ -28,6 +28,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
+import net.minecraft.network.protocol.game.ClientGamePacketListener
 import net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.block.Blocks
@@ -245,9 +246,9 @@ object AutoI4: Feature("Fully Automated I4") {
         scope.launch {
             for (pos in I4Helper.devBlocks.shuffled()) {
                 delay(800)
-                ClientboundBlockUpdatePacket(pos, Blocks.EMERALD_BLOCK.defaultBlockState()).handle(mc.connection)
+                ClientboundBlockUpdatePacket(pos, Blocks.EMERALD_BLOCK.defaultBlockState()).handle(mc.connection as ClientGamePacketListener)
                 delay(600)
-                ClientboundBlockUpdatePacket(pos, Blocks.BLUE_TERRACOTTA.defaultBlockState()).handle(mc.connection)
+                ClientboundBlockUpdatePacket(pos, Blocks.BLUE_TERRACOTTA.defaultBlockState()).handle(mc.connection as ClientGamePacketListener)
             }
         }
     }

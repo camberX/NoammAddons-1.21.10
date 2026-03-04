@@ -2,62 +2,22 @@ package com.github.noamm9.utils.render
 
 import it.unimi.dsi.fastutil.doubles.Double2ObjectMap
 import it.unimi.dsi.fastutil.doubles.Double2ObjectOpenHashMap
-import net.minecraft.client.renderer.RenderPipelines
-import net.minecraft.client.renderer.RenderStateShard
-import net.minecraft.client.renderer.RenderType
-import net.minecraft.client.renderer.RenderType.CompositeState
-import java.util.OptionalDouble
-import java.util.function.DoubleFunction
+import net.minecraft.client.renderer.rendertype.RenderType
+import net.minecraft.client.renderer.rendertype.RenderTypes
 
 object NoammRenderLayers {
-    private val linesThroughWallsLayers: Double2ObjectMap<RenderType.CompositeRenderType> = Double2ObjectOpenHashMap()
-    private val linesLayers: Double2ObjectMap<RenderType.CompositeRenderType> = Double2ObjectOpenHashMap()
+    private val linesThroughWallsLayers: Double2ObjectMap<RenderTypes> = Double2ObjectOpenHashMap()
+    private val linesLayers: Double2ObjectMap<RenderType> = Double2ObjectOpenHashMap()
 
+    private val LINES_THROUGH_WALLS = RenderTypes.lines()
 
-    private val LINES_THROUGH_WALLS = DoubleFunction { width ->
-        RenderType.create(
-            "lines_through_walls",
-            RenderType.TRANSIENT_BUFFER_SIZE, false, false,
-            NoammRenderPipelines.LINES_THROUGH_WALLS,
-            CompositeState.builder()
-                .setLineState(RenderStateShard.LineStateShard(OptionalDouble.of(width)))
-                .setLayeringState(RenderStateShard.VIEW_OFFSET_Z_LAYERING)
-                .createCompositeState(false)
-        )
-    }
+    private val LINES = RenderTypes.lines()
 
-    private val LINES = DoubleFunction { width ->
-        RenderType.create(
-            "lines",
-            RenderType.TRANSIENT_BUFFER_SIZE, false, false,
-            RenderPipelines.LINES,
-            CompositeState.builder()
-                .setLineState(RenderStateShard.LineStateShard(OptionalDouble.of(width)))
-                .setLayeringState(RenderStateShard.VIEW_OFFSET_Z_LAYERING)
-                .createCompositeState(false)
-        )
-    }
+    val FILLED = RenderTypes.debugFilledBox()
 
-    val FILLED: RenderType.CompositeRenderType = RenderType.create(
-        "filled", RenderType.TRANSIENT_BUFFER_SIZE, false, true,
-        RenderPipelines.DEBUG_FILLED_BOX,
-        CompositeState.builder()
-            .setLayeringState(RenderStateShard.VIEW_OFFSET_Z_LAYERING)
-            .createCompositeState(false)
-    )
+    val FILLED_THROUGH_WALLS = RenderTypes.debugFilledBox()
 
+    fun getLinesThroughWalls(width: Double): RenderType = LINES_THROUGH_WALLS
 
-    val FILLED_THROUGH_WALLS: RenderType.CompositeRenderType = RenderType.create(
-        "filled_through_walls", RenderType.TRANSIENT_BUFFER_SIZE, false, true,
-        NoammRenderPipelines.FILLED_THROUGH_WALLS,
-        CompositeState.builder()
-            .setLayeringState(RenderStateShard.VIEW_OFFSET_Z_LAYERING)
-            .createCompositeState(false)
-    )
-
-    fun getLinesThroughWalls(width: Double): RenderType.CompositeRenderType =
-        linesThroughWallsLayers.computeIfAbsent(width, LINES_THROUGH_WALLS)
-
-    fun getLines(width: Double): RenderType.CompositeRenderType =
-        linesLayers.computeIfAbsent(width, LINES)
+    fun getLines(width: Double): RenderType = LINES
 }

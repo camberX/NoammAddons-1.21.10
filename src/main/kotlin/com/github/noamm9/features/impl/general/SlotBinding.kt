@@ -13,6 +13,7 @@ import com.github.noamm9.utils.render.Render2D
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.client.gui.screens.inventory.InventoryScreen
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ClickType
 import org.lwjgl.glfw.GLFW
 import java.awt.Color
@@ -85,8 +86,8 @@ object SlotBinding: Feature("Allows you to bind slots to hotbar slots for quick 
             val hotbarIndex = if (slotId in 36 .. 44) slotId - 36 else boundPartner - 36
             val inventorySlot = if (slotId in 36 .. 44) boundPartner else slotId
 
-            if (mc.player == null || mc.gameMode == null) return@register
-            mc.gameMode !!.handleInventoryMouseClick(mc.player !!.containerMenu.containerId, inventorySlot, hotbarIndex, ClickType.SWAP, mc.player)
+            val player = mc.player as? Player ?: return@register
+            mc.gameMode?.handleInventoryMouseClick(player.containerMenu.containerId, inventorySlot, hotbarIndex, ClickType.SWAP, player)
         }
 
         register<ContainerEvent.Close> {

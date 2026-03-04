@@ -24,6 +24,7 @@ import net.minecraft.world.entity.decoration.ItemFrame
 import net.minecraft.world.item.MapItem
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.phys.AABB
+import net.minecraft.world.phys.shapes.Shapes
 import java.awt.Color
 import java.util.concurrent.CopyOnWriteArrayList
 
@@ -184,7 +185,7 @@ object TicTacToeSolver {
         val matrices = ctx.matrixStack ?: return
         val rotation = rotation ?: return
         if (WorldUtils.getBlockAt(pos) != Blocks.STONE_BUTTON) return
-        val cam = ctx.camera.position.reverse()
+        val cam = ctx.camera.position().reverse()
 
         val halfWidth = 0.2
         val halfHeight = 0.13
@@ -236,12 +237,12 @@ object TicTacToeSolver {
         matrices.pushPose()
         matrices.translate(cam.x, cam.y, cam.z)
 
-        ShapeRenderer.addChainedFilledBoxVertices(
+        ShapeRenderer.renderShape(
             matrices,
             consumers.getBuffer(NoammRenderLayers.FILLED_THROUGH_WALLS),
-            minX, minY, minZ,
-            maxX, maxY, maxZ,
-            color.red / 255f, color.green / 255f, color.blue / 255f, 0.7f
+            Shapes.create(minX, minY, minZ, maxX, maxY, maxZ),
+            .0, .0, .0,
+            color.rgb, 0.7f
         )
 
         matrices.popPose()

@@ -1,27 +1,8 @@
 package com.github.noamm9.utils.render
 
-import com.github.noamm9.NoammAddons
-import com.mojang.blaze3d.buffers.Std140Builder
-import com.mojang.blaze3d.systems.RenderSystem
-import com.mojang.blaze3d.vertex.DefaultVertexFormat
-import com.mojang.blaze3d.vertex.PoseStack
-import com.mojang.blaze3d.vertex.Tesselator
-import com.mojang.blaze3d.vertex.VertexFormat
-import net.minecraft.client.gui.GuiGraphics
-import net.minecraft.client.gui.navigation.ScreenRectangle
-import net.minecraft.client.gui.render.pip.PictureInPictureRenderer
-import net.minecraft.client.gui.render.state.pip.PictureInPictureRenderState
-import net.minecraft.client.renderer.DynamicUniformStorage
-import net.minecraft.client.renderer.MultiBufferSource
-import org.joml.Vector3f
-import org.joml.Vector4f
-import java.awt.Color
-import java.util.*
-import kotlin.math.ceil
-import kotlin.math.floor
-
 // credit to Eclipse
 // https://gist.github.com/Eclipse-5214/b83d91a654e2c7ef313f1deea052c162
+/*
 class RoundedRect(buffers: MultiBufferSource.BufferSource): PictureInPictureRenderer<RoundedRect.RoundRectState>(buffers) {
     override fun getRenderStateClass() = RoundRectState::class.java
     override fun textureIsReadyToBlit(state: RoundRectState) = state == lastState
@@ -118,4 +99,4 @@ class RoundedRect(buffers: MultiBufferSource.BufferSource): PictureInPictureRend
             return scissorArea?.intersection(rect) ?: rect
         }
     }
-}
+}*/

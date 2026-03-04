@@ -23,6 +23,7 @@ import net.minecraft.network.protocol.game.*
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.phys.AABB
+import net.minecraft.world.phys.shapes.Shapes
 import java.awt.Color
 
 object WitherDragons: Feature(
@@ -175,16 +176,22 @@ object WitherDragons: Feature(
     private fun drawDragonBox(ctx: RenderContext, aabb: AABB, color: Color) {
         val mstack = ctx.matrixStack ?: return
         val consumers = ctx.consumers ?: return
-        val camPos = ctx.camera.position
+        val camPos = ctx.camera.position()
 
         mstack.pushPose()
         mstack.translate(- camPos.x, - camPos.y, - camPos.z)
 
-        ShapeRenderer.renderLineBox(
-            mstack.last(),
-            consumers.getBuffer(NoammRenderLayers.getLines(2.0)),
-            aabb,
-            color.red / 255f, color.green / 255f, color.blue / 255f, 1f
+        val buffer = consumers.getBuffer(NoammRenderLayers.getLines(2.0))
+
+        val voxelShape = Shapes.create(aabb)
+
+        ShapeRenderer.renderShape(
+            mstack,
+            buffer,
+            voxelShape,
+            0.0, 0.0, 0.0,
+            color.rgb,
+            1f
         )
 
         mstack.popPose()

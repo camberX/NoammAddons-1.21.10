@@ -1,8 +1,8 @@
 package com.github.noamm9.features.impl.dungeon
 
 import com.github.noamm9.event.impl.ChatMessageEvent
-import com.github.noamm9.event.impl.ContainerEvent
 import com.github.noamm9.event.impl.CheckEntityRenderEvent
+import com.github.noamm9.event.impl.ContainerEvent
 import com.github.noamm9.event.impl.ScreenEvent
 import com.github.noamm9.features.Feature
 import com.github.noamm9.ui.clickgui.components.*
@@ -23,6 +23,7 @@ import com.github.noamm9.utils.render.Render2D
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.client.resources.sounds.SimpleSoundInstance
 import net.minecraft.sounds.SoundEvents
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Items
 import org.lwjgl.glfw.GLFW
@@ -79,7 +80,7 @@ object LeapMenu: Feature("Custom Leap Menu and leap message") {
             if (System.currentTimeMillis() > shouldHide) return@register
             if (event.entity !is Player) return@register
             if (event.entity == mc.player) return@register
-            if (event.entity.distanceToSqr(mc.player) > 4) return@register
+            if (event.entity.distanceToSqr(mc.player as Entity) > 4) return@register
             if (dungeonTeammatesNoSelf.none { it.name == event.entity.name.unformattedText }) return@register
             event.isCanceled = true
         }

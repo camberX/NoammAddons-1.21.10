@@ -44,8 +44,10 @@ object AuctionPriceInput: Feature("Replaces the sign input with a proper textbox
                 val existingText = Array(4) { i -> sign.frontText.getMessage(i, false).string }
 
                 // manually setting the screen so the sign gui wont close
-                val newscreen = AuctionInputScreen(sign, existingText, stack)
-                newscreen.init(mc, width, height)
+                val newscreen = AuctionInputScreen(sign, existingText, stack).apply {
+                    this.init(width, height)
+                }
+
                 mc.screen = newscreen
             }
         }
